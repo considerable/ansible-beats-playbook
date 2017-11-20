@@ -1,0 +1,13 @@
+---
+#
+# Playbook to install Beats for Elasticsearch
+#
+- hosts: beathosts
+  remote_user: centos
+  become: yes
+  become_user: root
+  roles:
+  - { role: yumrepo }
+  - { role: metricbeat }
+  # - { role: filebeat }
+
