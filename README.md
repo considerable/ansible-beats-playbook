@@ -17,7 +17,7 @@ cat > /etc/ansible/hosts << EOT
 EOT  
 git clone https://github.com/considerable/ansible-beats-playbook.git  
 cd ansible-beats-playbook  
-sudo ansible-playbook site.yml 
+ansible-playbook site.yml 
 ```
 
 ## For local ElasticSearch + Kibana testing, use Docker images
