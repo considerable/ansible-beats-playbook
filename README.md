@@ -6,7 +6,7 @@ This playbook is for setting up version 6.x of Beats for shipping data to a remo
 
 - Filebeat monitors the log directories or specific log files, tails the files, and forwards them either to Elasticsearch or Logstash for indexing.
 
-# How to use: replace 192.168.1.111 with your IP
+## How to use: replace 192.168.1.111 with your IP
 
 ```bash
 pip install ansible
@@ -20,7 +20,7 @@ cd ansible-beats-playbook
 sudo ansible-playbook site.yml 
 ```
 
-# For local ElasticSearch + Kibana testing, use Docker images
+## For local ElasticSearch + Kibana testing, use Docker images
 
 ```bash
 # ::::::::::::::
@@ -85,7 +85,7 @@ services:
       ELASTICSEARCH_URL: http://192.168.1.111:9200
 ```
 
-# testing query:    
+## Testing query    
 
 curl -s 'localhost:9200/_search?size=1&pretty&q=system.filesystem.type:rootfs'
 
