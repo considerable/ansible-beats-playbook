@@ -6,7 +6,7 @@ This playbook is for setting up version 6.x of Beats for shipping data to a remo
 
 - Filebeat monitors the log directories or specific log files, tails the files, and forwards them either to Elasticsearch or Logstash for indexing.
 
-# how to use
+# How to use: replace 192.168.1.111 with your IP
 
 ```bash
 pip install ansible
@@ -20,7 +20,7 @@ cd ansible-beats-playbook
 sudo ansible-playbook site.yml 
 ```
 
-# if need a local ELK for testing, use Docker images
+# For local ElasticSearch + Kibana testing, use Docker images
 
 ```bash
 # ::::::::::::::
@@ -84,3 +84,61 @@ services:
       SERVER_NAME: '0.0.0.0'
       ELASTICSEARCH_URL: http://192.168.1.111:9200
 ```
+
+# testing query:    
+
+curl -s 'localhost:9200/_search?size=1&pretty&q=system.filesystem.type:rootfs'
+
+```
+{
+  "took" : 4,
+  "timed_out" : false,
+  "_shards" : {
+    "total" : 6,
+    "successful" : 6,
+    "skipped" : 0,
+    "failed" : 0
+  },
+  "hits" : {
+    "total" : 79,
+    "max_score" : 2.8291354,
+    "hits" : [
+      {
+        "_index" : "metricbeat-6.0.0-2017.11.20",
+        "_type" : "doc",
+        "_id" : "kay4218Bqg2UCBXZVGB_",
+        "_score" : 2.8291354,
+        "_source" : {
+          "@timestamp" : "2017-11-20T23:16:50.407Z",
+          "metricset" : {
+            "module" : "system",
+            "name" : "filesystem",
+            "rtt" : 45665
+          },
+          "system" : {
+            "filesystem" : {
+              "type" : "rootfs",
+              "total" : 107321753600,
+              "used" : {
+                "pct" : 0.0634,
+                "bytes" : 6799953920
+              },
+              "free" : 100521799680,
+              "free_files" : 104678869,
+              "device_name" : "rootfs",
+              "mount_point" : "/",
+              "files" : 104857600,
+              "available" : 100521799680
+            }
+          },
+          "beat" : {
+            "name" : "localhost",
+            "hostname" : "localhost",
+            "version" : "6.0.0"
+          }
+        }
+      }
+    ]
+  }
+}
+```  
